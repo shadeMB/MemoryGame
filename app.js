@@ -1,10 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Card Options
+    
     const grid = document.querySelector('.grid');
-    const resultDisplay = document.querySelector('#result');
+    const score = document.querySelector('#score');
+    const message = document.querySelector('#message');
     let cardsChosen = [];
     let cardsChosenId = [];
     let cardsWon = [];
+
+    score.textContent = "0";
+    message.textContent = "Good luck!";
+
+    // Card Options
     const cardArray = [
         {
             'name': 'banana',
@@ -76,20 +82,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const optionOneId = cardsChosenId[0];
         const optionTwoId = cardsChosenId[1];
         if (cardsChosen[0] === cardsChosen[1] && optionOneId != optionTwoId) {
-            alert('You have found a match');
+            message.textContent = "You found a match!";
             cards[optionOneId].setAttribute('src', 'img/blank.jpg');
             cards[optionTwoId].setAttribute('src', 'img/blank.jpg');
             cardsWon.push(cardsChosen);
         } else {
             cards[optionOneId].setAttribute('src', 'img/grey.jpg');
             cards[optionTwoId].setAttribute('src', 'img/grey.jpg');
-            alert('Sorry, try again!');
+            message.textContent = "Sorry, try again!";
         }
         cardsChosen = [];
         cardsChosenId = [];
-        resultDisplay.textContent = cardsWon.length;
+        score.textContent = cardsWon.length;
         if (cardsWon.length === cardArray.length/2) {
-            resultDisplay.textContent = "Congratulations! You won!";
+            message.textContent = "Congratulations! You won!";
         }
     }
 
@@ -101,7 +107,6 @@ document.addEventListener('DOMContentLoaded', () => {
         this.setAttribute('src', cardArray[cardId].img);
         if (cardsChosen.length === 2) {
             setTimeout(checkForMatch, 500);
-            console.log('check for match');
         }
     }
 
